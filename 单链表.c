@@ -17,20 +17,20 @@ typedef struct Node
 
 typedef struct Node *LinkList;
 
-//åˆå§‹åŒ–é“¾è¡¨ 
+//³õÊ¼»¯Á´±í 
 Status InitList(LinkList *L)
 {
 	*L = (LinkList)malloc(sizeof(Node));
 	if(!(*L))
 	{
-		return ERROR;  //åˆ†é…å†…å­˜å¤±è´¥ 
+		return ERROR;  //·ÖÅäÄÚ´æÊ§°Ü 
 	}
 	
 	(*L)->Next = NULL;
 	return OK;	
 }
 
-//è·å–é“¾è¡¨é•¿åº¦
+//»ñÈ¡Á´±í³¤¶È
 int ListLength(LinkList L)
 {
 	int i = 0;
@@ -47,7 +47,7 @@ int ListLength(LinkList L)
 	
 }
 
-//éå†é“¾è¡¨
+//±éÀúÁ´±í
 void ListTraverse(LinkList L)
 {
 	LinkList p = L->Next;
@@ -59,7 +59,7 @@ void ListTraverse(LinkList L)
 	printf("\n");
 }
 
-//æŸ¥æ‰¾å…ƒç´ ç´¢å¼•
+//²éÕÒÔªËØË÷Òı
 int LocateElem(LinkList L,ElemType e)
 {
 	int j,k;
@@ -79,7 +79,7 @@ int LocateElem(LinkList L,ElemType e)
 	return k;
 }
 
-//æ’å…¥ä¸€ä¸ªèŠ‚ç‚¹
+//²åÈëÒ»¸ö½Úµã
 Status ListInsert(LinkList *L,int i,ElemType e)
 {
 	int j=1;
@@ -105,12 +105,12 @@ Status ListInsert(LinkList *L,int i,ElemType e)
 
 }
 
-//éšæœºäº§ç”Ÿnä¸ªå…ƒç´ çš„å€¼,å»ºç«‹å¸¦è¡¨å¤´èŠ‚ç‚¹çš„å•é“¾è¡¨çº¿æ€§L
+//Ëæ»ú²úÉún¸öÔªËØµÄÖµ,½¨Á¢´ø±íÍ·½ÚµãµÄµ¥Á´±íÏßĞÔL
 void CreateListHead(LinkList *L,int n)
 {
 	LinkList p;
 	int i;
-	srand(time(0));  //äº§ç”Ÿéšæœºæ•°
+	srand(time(0));  //²úÉúËæ»úÊı
 	*L = (LinkList)malloc(sizeof(Node));
 	(*L)->Next = NULL;
 	for(i=0;i<n;i++)
@@ -119,11 +119,34 @@ void CreateListHead(LinkList *L,int n)
 		p->data = rand()%100+1;
 		p->Next = (*L)->Next;
 		(*L)->Next = p;
+	}	
+}
+
+//Ëæ»ú²úÉúN¸öÔªËØ,Î²°Í²åÈë·¨ 
+void CreateListTail(LinkList *L,int n)
+{
+	LinkList p,s;
+	int i;
+	srand(time(0));  //²úÉúËæ»úÊı
+	*L = (LinkList)malloc(sizeof(Node));
+	(*L)->Next = NULL;
+	s = (*L);
+	for(i=0;i<n;i++)
+	{	
+		p = (LinkList)malloc(sizeof(Node));
+		p->data = rand() % 100 + 1;
+		p->Next = NULL;
+		
+		s->Next = p;
+		s = p;
 	}
+	
 }
 
 
-//æŸ¥æ‰¾èŠ‚ç‚¹
+
+
+//²éÕÒ½Úµã
 Status GetElem(LinkList L,int i,ElemType *e)
 {
 	int j=1;
@@ -143,7 +166,7 @@ Status GetElem(LinkList L,int i,ElemType *e)
 	return OK;
 }
 
-//åˆ é™¤æŸä¸ªèŠ‚ç‚¹å…ƒç´ 
+//É¾³ıÄ³¸ö½ÚµãÔªËØ
 Status ListDelete(LinkList *L,int i,ElemType *e)
 {
 	int j = 1;
@@ -161,7 +184,7 @@ Status ListDelete(LinkList *L,int i,ElemType *e)
 		return ERROR;
 	}
 
-	//æ­¤åˆ»pä»£è¡¨ä½i-1ä¸ªå…ƒç´ 
+	//´Ë¿Ìp´ú±íµÍi-1¸öÔªËØ
 	s = p->Next;
 	*e = s->data;
 	p->Next = s->Next;
@@ -171,7 +194,7 @@ Status ListDelete(LinkList *L,int i,ElemType *e)
 
 }
 
-//æ¸…ç©ºé“¾è¡¨
+//Çå¿ÕÁ´±í
 Status ClearList(LinkList *L)
 {
 	LinkList p,s;
@@ -195,10 +218,10 @@ int main()
 	Status i;
 	int j,k;
 	
-	//åˆå§‹åŒ–é“¾è¡¨ç»“æ„ 
+	//³õÊ¼»¯Á´±í½á¹¹ 
 	i =  InitList(&L);
 	j =  ListLength(L);
-	printf("åˆå§‹åŒ–é“¾è¡¨å,é•¿åº¦ä¸º:%d\n",j);
+	printf("³õÊ¼»¯Á´±íºó,³¤¶ÈÎª:%d\n",j);
 
 	for(j=1;j<=5;j++)
 	{
@@ -206,35 +229,35 @@ int main()
 	}
 
 	j =  ListLength(L);
-	printf("æ’å…¥5ä¸ªå…ƒç´ å,é“¾è¡¨é•¿åº¦ä¸º:%d\n",j);
-	printf("æ­¤æ—¶é“¾è¡¨çš„æ•°æ®ä¸º:\n");
+	printf("²åÈë5¸öÔªËØºó,Á´±í³¤¶ÈÎª:%d\n",j);
+	printf("´ËÊ±Á´±íµÄÊı¾İÎª:\n");
 	ListTraverse(L);
 
 	k = 1;
 	i = ListDelete(&L,k,&e);
 	if(i == OK)
 	{
-		printf("åˆ é™¤ç¬¬%dä¸ªå…ƒç´ æˆåŠŸ,è¯¥å…ƒç´ ä¸º%d\n",k,e);
+		printf("É¾³ıµÚ%d¸öÔªËØ³É¹¦,¸ÃÔªËØÎª%d\n",k,e);
 	}else{
-		printf("åˆ é™¤ç¬¬%dä¸ªå…ƒç´ å¤±è´¥\n",k);
+		printf("É¾³ıµÚ%d¸öÔªËØÊ§°Ü\n",k);
 	}
 
 	k = 4;
 	i = ListDelete(&L,k,&e);
 	if(i == OK)
 	{
-		printf("åˆ é™¤ç¬¬%dä¸ªå…ƒç´ æˆåŠŸ,è¯¥å…ƒç´ ä¸º%d\n",k,e);
+		printf("É¾³ıµÚ%d¸öÔªËØ³É¹¦,¸ÃÔªËØÎª%d\n",k,e);
 	}else{
-		printf("åˆ é™¤ç¬¬%dä¸ªå…ƒç´ å¤±è´¥\n",k);
+		printf("É¾³ıµÚ%d¸öÔªËØÊ§°Ü\n",k);
 	}
 
-	printf("æ­¤æ—¶é“¾è¡¨çš„æ•°æ®ä¸º:\n");
+	printf("´ËÊ±Á´±íµÄÊı¾İÎª:\n");
 	ListTraverse(L);
 
 	ClearList(&L);
 	j =  ListLength(L);
-	printf("æ¸…ç©ºé“¾è¡¨æ•°æ®å,é“¾è¡¨çš„äº§åº¦ä¸º:%d\n",j);
-	printf("æ­¤æ—¶é“¾è¡¨çš„æ•°æ®ä¸º:\n");
+	printf("Çå¿ÕÁ´±íÊı¾İºó,Á´±íµÄ²ú¶ÈÎª:%d\n",j);
+	printf("´ËÊ±Á´±íµÄÊı¾İÎª:\n");
 	ListTraverse(L);
 
 	for(j=1;j<=15;j++)
@@ -243,17 +266,17 @@ int main()
 	}
 
 	j =  ListLength(L);
-	printf("æ’å…¥15ä¸ªå…ƒç´ å,é“¾è¡¨é•¿åº¦ä¸º:%d\n",j);
-	printf("æ­¤æ—¶é“¾è¡¨çš„æ•°æ®ä¸º:\n");
+	printf("²åÈë15¸öÔªËØºó,Á´±í³¤¶ÈÎª:%d\n",j);
+	printf("´ËÊ±Á´±íµÄÊı¾İÎª:\n");
 	ListTraverse(L);
 
 	k = 3;
 	i = GetElem(L,k,&e);
 	if(i==OK)
 	{
-		printf("ç¬¬%dä¸ªå…ƒç´ æ˜¯:%d\n",k,e);
+		printf("µÚ%d¸öÔªËØÊÇ:%d\n",k,e);
 	}else{
-		printf("æ²¡æœ‰æŸ¥æ‰¾åˆ°ç¬¬%dä¸ªå…ƒç´ \n",k);
+		printf("Ã»ÓĞ²éÕÒµ½µÚ%d¸öÔªËØ\n",k);
 	}
 
 	e = 100;
@@ -261,11 +284,26 @@ int main()
 
 	if(k == 0)
 	{
-		printf("æ²¡æœ‰æŸ¥æ‰¾åˆ°èŠ‚ç‚¹æ•°æ®ä¸º:%dçš„èŠ‚ç‚¹\n",e);
+		printf("Ã»ÓĞ²éÕÒµ½½ÚµãÊı¾İÎª:%dµÄ½Úµã\n",e);
 	}else{
-		printf("èŠ‚ç‚¹æ•°æ®ä¸º:%dçš„èŠ‚ç‚¹ä½ç½®ä¸º:%d\n",e,k);
+		printf("½ÚµãÊı¾İÎª:%dµÄ½ÚµãÎ»ÖÃÎª:%d\n",e,k);
 	}
-
+	ClearList(&L);
+	j =  ListLength(L);
+	printf("Çå¿ÕÁ´±íÊı¾İºó,Á´±íµÄ²ú¶ÈÎª:%d\n",j);
+	
+	CreateListHead(&L,10);
+	printf("Í·²¿²åÈë10¸ö½ÚµãºóÊı¾İÎª:\n");
+	ListTraverse(L);
+	ClearList(&L);
+	j =  ListLength(L);
+	printf("Çå¿ÕÁ´±íÊı¾İºó,Á´±íµÄ²ú¶ÈÎª:%d\n",j);
+	
+	CreateListTail(&L,10);
+	printf("Î²²¿²åÈë10¸ö½ÚµãºóÊı¾İÎª:\n");
+	ListTraverse(L);
+	
+	
 	return 0;
 	
 
